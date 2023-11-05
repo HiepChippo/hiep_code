@@ -12,12 +12,15 @@ import commons.MenuEvent;
 import commons.MyButton;
 import commons.MyMenu;
 import commons.PanelButton;
-import form.ChamCongCongNhan_Form;
+import entities.TaiKhoan;
 import form.ChamCongNhanVien_Form;
-import form.ThongKeKPI_Form;
-import form.ThongKeLuongCongNhan_Form;
-import form.ThongKeLuongNhanVien_Form;
-import form.TinhLuongNhanVien_Form;
+import form.PhanCongNhanVien_Form;
+import form.QuanLyCongTrinh_Form;
+import form.QuanLyNhanVien_Form;
+import form.TaiKhoan_Form;
+import form.ThongKeNhanVienCongTrinh_Form;
+//import form.TrangChu_Form;
+import form.TrangChu_Form;
 
 import java.awt.Font;
 import java.awt.Frame;
@@ -48,10 +51,11 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import java.awt.Component;
+import java.awt.FlowLayout;
 
 /**
  * 
- * @author Nguyễn Gia Bảo, Ngô Quốc Đạt, Nguyễn Nhất Dương, Võ Văn Nghĩa Hiệp
+ * 
  * @version 1.0
  *
  */
@@ -68,16 +72,19 @@ public class Main_GUI extends JFrame implements ActionListener{
 	private JPanel panelCNort;
 	private MyMenu menu;
 	//Form
-	private ChamCongCongNhan_Form chamCongCongNhan_Form = null;
-	private TinhLuongNhanVien_Form tinhLuongNhanVien_Form = null;
+    private QuanLyNhanVien_Form quanLyNhanVien_Form = null;
+    private QuanLyCongTrinh_Form quanLyCongTrinh_Form = null;
 	private ChamCongNhanVien_Form chamCongNhanVien_Form = null;
-	private ThongKeKPI_Form thongKeKPI_form = null;
-	private ThongKeLuongCongNhan_Form thongKeLuongCongNhan_Form =null;
-	private ThongKeLuongNhanVien_Form thongKeLuongNhanVien_Form =null;
-
+	private ThongKeNhanVienCongTrinh_Form thongKeNhanVienCongTrinh_Form =null;
+    private TrangChu_Form trangChu_Form = null;
+    private PhanCongNhanVien_Form phanCongNhanVien_Form = null;
+    private TaiKhoan_Form taiKhoan_Form = null;
 	private JPanel panelContent;
 	private MyButton btnAvt;
 	private static Main_GUI mainFrame = new Main_GUI();
+	private static Login_GUI loginFrame = new Login_GUI();
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
 	
 	public static void main(String[] args) {
 		mainFrame.setVisible(true);
@@ -87,7 +94,11 @@ public class Main_GUI extends JFrame implements ActionListener{
 		mainFrame.setVisible(true);
 //		resize();
 	}
-
+   
+    public void closeMain_Gui()
+    {
+    	mainFrame.setVisible(false);
+    }
 	/**
 	 * Create the frame.
 	 */
@@ -95,7 +106,7 @@ public class Main_GUI extends JFrame implements ActionListener{
 		int w = WIDTH;
 		int h = HEIGHT;
 		
-		setTitle("Phần mềm quản lý lương sản phẩm");
+		setTitle("Phần mềm quản lý lao động");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1800, 800);
 		setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -112,9 +123,9 @@ public class Main_GUI extends JFrame implements ActionListener{
 		panelWest.setLayout(new BorderLayout());
 		panelWest.setSize(new Dimension((int)(w*0.18), this.getHeight()));
 		panelWest.setPreferredSize(new Dimension((int)(w*0.18), h));
-		panelWest.setkStartColor(Color.decode("#004e92"));
+		panelWest.setkStartColor(Color.decode("#003973"));
 		panelWest.setkGradientFocus(500);
-		panelWest.setkEndColor(Color.decode("#000428"));
+		panelWest.setkEndColor(Color.decode("#E5E5BE"));
 		contentPane.add(panelWest, BorderLayout.WEST);
 		
 		// Khởi tạo menu
@@ -128,20 +139,27 @@ public class Main_GUI extends JFrame implements ActionListener{
 			}
 		});
 		
-		Image logo = new ImageIcon(Main_GUI.class.getResource("/icon/logo.png")).getImage().getScaledInstance((int)(w*0.1), (int)(w*0.1), Image.SCALE_SMOOTH);
+		Image logo = new ImageIcon(Main_GUI.class.getResource("/icon/logo.png")).getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
 		ImageIcon logoIcon = new ImageIcon(logo);
 		JPanel panelLogo = new JPanel();
 		panelLogo.setBackground(new Color(255, 255, 255));
 		panelLogo.setSize(new Dimension((int) (w*0.14), (int) (w*0.14)));
 		panelLogo.setPreferredSize(new Dimension((int) (w*0.18), (int) (w*0.1)));
 		panelLogo.setOpaque(false);
-		panelLogo.setLayout(new BorderLayout());
 		panelWest.add(panelLogo, BorderLayout.NORTH);
+		panelLogo.setLayout(null);
 		
 		JLabel lblLogo = new JLabel();
+		lblLogo.setBounds(0, 0, 176, 153);
 		lblLogo.setIcon(logoIcon);
 //		lblLogo.setHorizontalAlignment(h)
 		panelLogo.add(lblLogo);
+		
+		lblNewLabel = new JLabel("HCT WORK");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 23));
+		lblNewLabel.setBounds(139, 32, 127, 84);
+		panelLogo.add(lblNewLabel);
 		
 		panelCenter = new JPanel();
 		panelCenter.setSize(new Dimension((int) (w*0.82), h));
@@ -155,7 +173,13 @@ public class Main_GUI extends JFrame implements ActionListener{
 		panelCNort.setSize(panelCenter.getWidth(), (int)(h*0.06));
 		panelCNort.setPreferredSize(new Dimension(panelCenter.getWidth(), (int)(h*0.06)));
 		panelCenter.add(panelCNort, BorderLayout.NORTH);
-		panelCNort.setLayout(new BorderLayout());
+		panelCNort.setLayout(null);
+		
+		lblNewLabel_1 = new JLabel("Võ Văn Nghĩa Hiệp");
+		lblNewLabel_1.setIcon(new ImageIcon(Main_GUI.class.getResource("/icon/user.png")));
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_1.setBounds(1027, 0, 237, 51);
+		panelCNort.add(lblNewLabel_1);
 		
 		// avt nhân viên
 //		btnAvt = new MyButton();
@@ -167,16 +191,18 @@ public class Main_GUI extends JFrame implements ActionListener{
 		// Panel chứa nội dung 
 		panelContent = new JPanel();
 		panelContent.setBorder(new EmptyBorder(0, 10, 0, 10));
-		panelCenter.add(panelContent, BorderLayout.CENTER);
-		
+		panelCenter.add(panelContent, BorderLayout.SOUTH);
+	
 		//Khởi tạo các form
-		chamCongCongNhan_Form = new ChamCongCongNhan_Form(panelCenter.getWidth(), panelCenter.getHeight() - panelCNort.getHeight());
-		tinhLuongNhanVien_Form = new TinhLuongNhanVien_Form(panelCenter.getWidth(), panelCenter.getHeight() - panelCNort.getHeight());
-		chamCongNhanVien_Form = new ChamCongNhanVien_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
-		thongKeKPI_form = new ThongKeKPI_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
-		thongKeLuongCongNhan_Form = new ThongKeLuongCongNhan_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
-		thongKeLuongNhanVien_Form = new ThongKeLuongNhanVien_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
 
+		chamCongNhanVien_Form = new ChamCongNhanVien_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
+		thongKeNhanVienCongTrinh_Form = new ThongKeNhanVienCongTrinh_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
+		trangChu_Form = new TrangChu_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());	
+		quanLyCongTrinh_Form = new QuanLyCongTrinh_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
+		quanLyNhanVien_Form = new QuanLyNhanVien_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
+		phanCongNhanVien_Form = new PhanCongNhanVien_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
+		taiKhoan_Form = new TaiKhoan_Form(panelCenter.getWidth(), panelCenter.getHeight()-panelCNort.getHeight());
+		panelContent.add(trangChu_Form);
 	}
 
 	
@@ -190,11 +216,14 @@ public class Main_GUI extends JFrame implements ActionListener{
 	private void initMenu() {
 		String[][] menuAdmin = new String[][]{
 			{"Trang chủ"},
-			{"Công nhân", "Quản lý công nhân", "Chấm công công nhân", "Tính lương công nhân", "Thống kê lương", "Thống kê KPI"},
-			{"Nhân viên", "Quản lý nhân viên", "Chấm công nhân viên", "Tính lương nhân viên", "Thống kê lương"},
-			{"Hợp đồng"},
-			{"Sản phẩm", "Quản lý sản phẩm", "Chia công đoạn sản phẩm"},
-			{"Hỗ trợ"}
+			{"Danh mục", "Nhân viên", "Công trình"},
+			{"Xử lý", "Chấm công nhân viên", "Phân công công trình"},
+			{"Thống kê"},
+			{"Tài khoản"},
+			{""},
+			{""},
+			{""},
+			{"Đăng xuất"}
 		};
 		menu = new MyMenu(menuAdmin);
 		panelWest.add(menu);
@@ -207,44 +236,49 @@ public class Main_GUI extends JFrame implements ActionListener{
 	 * @param subIndex
 	 */
 	private void moForm(int index, int subIndex) {
-		if(index == 0 && subIndex == 0) {
-			
+		if(index == 0 && subIndex == 0) { 
+			setForm(trangChu_Form);
 		}
 		else if (index == 1) {
 			if (subIndex == 1) {
-				
+				setForm(quanLyNhanVien_Form);
 			}
 			else if(subIndex == 2){
-				setForm(chamCongCongNhan_Form);
-			}
+				setForm(quanLyCongTrinh_Form);
+		    }
 			else if(subIndex == 4)
 			{
-				setForm(thongKeLuongCongNhan_Form);
+				
 			}
 			else if(subIndex == 5)
 			{
-				setForm(thongKeKPI_form);
+			
 			}
 				
 		}
 		else if(index == 2) {
 			if (subIndex == 1) {
-				
+				setForm(chamCongNhanVien_Form);
 			}
 			else if(subIndex == 2){
-				setForm(chamCongNhanVien_Form);
+				setForm(phanCongNhanVien_Form);
+				
 			}else if(subIndex == 3){
-				setForm(tinhLuongNhanVien_Form);
+				
 			}
-			else if(subIndex == 4)
-			{
-				setForm(thongKeLuongNhanVien_Form);
-			}
+			
 		}
 		else if(index == 3 && subIndex == 0) {
-			
-		}else if(index == 5 && subIndex == 0) {
-			moLinkHoTro();
+			setForm(thongKeNhanVienCongTrinh_Form);
+		}
+		else if(index == 4 && subIndex == 0)
+		{
+			setForm(taiKhoan_Form);
+		}
+		else if(index == 8 && subIndex == 0)
+		{
+			openLogin_GUI();
+			closeMain_Gui();
 		}
 	}
 	
@@ -258,33 +292,7 @@ public class Main_GUI extends JFrame implements ActionListener{
 		panelContent.revalidate();
 	}
 	
-	/**
-	 * Mở link hỗ trợ
-	 */
-	private void moLinkHoTro() {
-		// Tạo một đối tượng URL cho link
-        URL url = null;
-		try {
-			url = new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        // Tạo một đối tượng Desktop
-        Desktop desktop = Desktop.getDesktop();
-
-        // Sử dụng phương thức browse() của đối tượng Desktop để mở link
-        try {
-			desktop.browse(url.toURI());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

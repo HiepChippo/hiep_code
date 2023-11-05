@@ -1,5 +1,6 @@
 package connectDB;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class ConnectDB {
@@ -9,20 +10,22 @@ public class ConnectDB {
 		return instance;
 	}
 	public void connect() throws SQLException, ClassNotFoundException {	
-		String url = "jdbc:sqlserver://localhost:1433;databasename=QLLuongSanPham";
+		String url = "jdbc:sqlserver://localhost:1433;databasename=QuanLyLaoDong";
 		String user = "sa";
-		String password = "sapassword";
+		String password = "123";
 		con = DriverManager.getConnection(url, user, password);
+
 	}	
 	public void disconnect() {
 		if (con != null)
 			try {
 				con.close();
-			} catch (SQLException e) {	e.printStackTrace();			}
+			} catch (SQLException e) {
+				e.printStackTrace();			
+			}
 	}
 	
 	public static Connection getConnection() {
 		return con;
 	}
-
 }

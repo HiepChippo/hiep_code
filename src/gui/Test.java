@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import commons.RoundPanel;
 import commons.Table;
-import form.ChamCongCongNhan_Form;
 import java.awt.Color;
 
 public class Test extends JFrame {

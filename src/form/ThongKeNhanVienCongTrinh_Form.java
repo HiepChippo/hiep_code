@@ -26,6 +26,7 @@ import org.jfree.data.statistics.HistogramDataset;
 import com.raven.datechooser.DateChooser;
 import com.toedter.calendar.JDateChooser;
 
+import commons.MyButton;
 import commons.RoundPanel;
 import commons.Table;
 
@@ -66,22 +67,21 @@ import javax.swing.JComponent;
 import java.awt.FlowLayout;
 import javax.swing.JToolBar;
 
-public class ThongKeLuongCongNhan_Form extends JPanel{
+public class ThongKeNhanVienCongTrinh_Form extends JPanel{
      
 
 	private JPanel panelNorth;
 	private JPanel panelSouth;
     private  int width = 1250;
-    private  int height = 725;
+    private  int height = 777;
 	private DefaultTableModel model;
-    private Table table_2;
     private Table tableThongKe;
-	private JTextField textField;
 	private JPanel panelBarChart;
 	private JPanel panelLineChart;
 
-	private RoundPanel panelCenter;
-	public ThongKeLuongCongNhan_Form(int width, int height)
+	private JComponent panelCenter;
+	
+	public ThongKeNhanVienCongTrinh_Form(int width, int height)
     { 
     	this.width = width;
     	this.height = height;
@@ -95,14 +95,14 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
 
 	 public void showBarChart(){
 	        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-	        dataset.setValue(200, "Amount", "january");
-	        dataset.setValue(150, "Amount", "february");
-	        dataset.setValue(18, "Amount", "march");
-	        dataset.setValue(100, "Amount", "april");
-	        dataset.setValue(80, "Amount", "may");
-	        dataset.setValue(250, "Amount", "june");
+	        dataset.setValue(200, "Lương trung bình", "Tháng 6");
+	        dataset.setValue(150, "Lương trung bình", "Tháng 7");
+	        dataset.setValue(18, "Lương trung bình", "Tháng 8");
+	        dataset.setValue(100, "Lương trung bình", "Tháng 9");
+	        dataset.setValue(80, "Lương trung bình", "Tháng 10");
+	        dataset.setValue(250, "Lương trung bình", "Tháng 11");
 	        
-	        JFreeChart chart = ChartFactory.createBarChart("contribution","monthly","amount", 
+	        JFreeChart chart = ChartFactory.createBarChart("Biểu đồ lương trung bình mỗi tháng","Tháng","Lương", 
 	                dataset, PlotOrientation.VERTICAL, false,true,false);
 	        
 	        CategoryPlot categoryPlot = chart.getCategoryPlot();
@@ -113,53 +113,28 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
 	        renderer.setSeriesPaint(0, clr3);
 	        
 	        ChartPanel barpChartPanel = new ChartPanel(chart);
+	        barpChartPanel.setBounds(-28, 10, 571, 407);
 	        panelBarChart.removeAll();
-	        panelBarChart.add(barpChartPanel, BorderLayout.SOUTH);
+	        panelBarChart.setLayout(null);
+	        panelBarChart.add(barpChartPanel);
+	        barpChartPanel.setLayout(null);
 	        panelBarChart.validate();
 	        
 	        
 	    }
-//	 public void showPieChart(){
-//	        
-//	        //create dataset
-//	      DefaultPieDataset barDataset = new DefaultPieDataset( );
-//	      barDataset.setValue( "IPhone 5s" , new Double( 20 ) );  
-//	      barDataset.setValue( "SamSung Grand" , new Double( 20 ) );   
-//	      barDataset.setValue( "MotoG" , new Double( 40 ) );    
-//	      barDataset.setValue( "Nokia Lumia" , new Double( 10 ) );  
-//	      
-//	      //create chart
-//	       JFreeChart piechart = ChartFactory.createPieChart("mobile sales",barDataset, false,true,false);//explain
-//	      
-//	        PiePlot piePlot =(PiePlot) piechart.getPlot();
-//	      
-//	       //changing pie chart blocks colors
-//	       piePlot.setSectionPaint("IPhone 5s", new Color(255,255,102));
-//	        piePlot.setSectionPaint("SamSung Grand", new Color(102,255,102));
-//	        piePlot.setSectionPaint("MotoG", new Color(255,102,153));
-//	        piePlot.setSectionPaint("Nokia Lumia", new Color(0,204,204));
-//	      
-//	       
-//	        piePlot.setBackgroundPaint(Color.white);
-//	        
-//	        //create chartPanel to display chart(graph)
-//	        ChartPanel barChartPanel = new ChartPanel(piechart);
-//	        panelLineChart.removeAll();
-//	        panelLineChart.add(barChartPanel, BorderLayout.CENTER);
-//	        panelLineChart.validate();
-//	    }
+
 	 public void showLineChart(){
 	        //create dataset for the graph
 	         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-	        dataset.setValue(6000, "Amount", "january");
-	        dataset.setValue(7000, "Amount", "february");
-	        dataset.setValue(1800, "Amount", "march");
-	        dataset.setValue(5000, "Amount", "april");
-	        dataset.setValue(8000, "Amount", "may");
-	        dataset.setValue(10000, "Amount", "june");
-	        
+	        dataset.setValue(6000, "Amount", "Tháng 5");
+	        dataset.setValue(7000, "Amount", "Tháng 6");
+	        dataset.setValue(1800, "Amount", "Tháng 7");
+	        dataset.setValue(5000, "Amount", "Tháng 8");
+	        dataset.setValue(8000, "Amount", "Tháng 9");
+	        dataset.setValue(10000, "Amount", "Tháng 11");
+	        dataset.setValue(10000, "Amount", "Tháng 12");
 	        //create ch
-	        JFreeChart linechart = ChartFactory.createLineChart("contribution","monthly","amount", 
+	        JFreeChart linechart = ChartFactory.createLineChart("Biểu đồ tăng trưởng lương trung bình","Tháng","Lương", 
 	                dataset, PlotOrientation.VERTICAL, false,true,false);
 	        
 	        //create plot object
@@ -174,7 +149,7 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
 	        
 	         //create chartPanel to display chart(graph)
 	        ChartPanel lineChartPanel = new ChartPanel(linechart);
-	        lineChartPanel.setBounds(-27, 0, 629, 407);
+	        lineChartPanel.setBounds(10, 0, 690, 420);
 	        panelLineChart.removeAll();
 	        panelLineChart.setLayout(null);
 	        panelLineChart.add(lineChartPanel);
@@ -182,19 +157,18 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
 	    }
     public void initComponents()
     {
-      setPreferredSize(new Dimension(1250, 778));
-  	  setBackground(Color.decode("#004e92"));
+      setPreferredSize(new Dimension(1250, 777));
+  	  setBackground(Color.white);
   	  panelBarChart = new JPanel();
   	  panelBarChart.setBackground(new Color(255, 255, 255));
-  	  panelBarChart.setBounds(31, 364, 571, 407);
+  	  panelBarChart.setBounds(10, 364, 592, 407);
   	   panelLineChart = new JPanel();
   	  panelLineChart.setBackground(new Color(255, 255, 255));
-  	  panelLineChart.setBounds(612, 364, 612, 407);
+  	  panelLineChart.setBounds(581, 364, 669, 432);
   	  setLayout(null);
   	  add(panelBarChart);
-  	  panelBarChart.setLayout(new BorderLayout(0, 0));
   	  add(panelLineChart);
-      
+
    // Bảng chấm công
    		tableThongKe = new Table();
    		  tableThongKe.setOpaque(false);
@@ -208,31 +182,32 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
    		    		{null, null, null, null},
    		    	},
    		    	new String[] {
-   		    		"ID ph\u00E2n x\u01B0\u1EDFng", "T\u00EAn ph\u00E2n x\u01B0\u1EDFng", "S\u1ED1 l\u01B0\u1EE3ng c\u00F4ng nh\u00E2n", "T\u1ED5ng L\u01B0\u01A1ng"
+   		    		"ID Ph\u00F2ng Ban", "T\u00EAn ph\u00F2ng ban", "S\u1ED1 l\u01B0\u1EE3ng nh\u00E2n vi\u00EAn", "T\u1ED5ng L\u01B0\u01A1ng"
    		    	}
    		    ));
    		    tableThongKe.getColumnModel().getColumn(1).setPreferredWidth(92);
    		    tableThongKe.getColumnModel().getColumn(2).setPreferredWidth(89);
-         
+           
            JScrollPane scrollPane_TK = new JScrollPane();
            scrollPane_TK.setBackground(new Color(255, 255, 255));
            scrollPane_TK.setOpaque(false);
            scrollPane_TK.setBorder(new EmptyBorder(5, 5, 5, 5));
            scrollPane_TK.setViewportView(tableThongKe);
-           scrollPane_TK.setBounds(10, 10, 1173, 259);
+           scrollPane_TK.setBounds(0, 0, 1198, 279);
            tableThongKe.fixTable(scrollPane_TK);
            panelCenter = new RoundPanel();
-   		   panelCenter.setRound(20);
+   		   ((RoundPanel) panelCenter).setRound(20);
    		   panelCenter.setBackground(new Color(255, 255, 255));
    		   panelCenter.setBorder(new EmptyBorder(5, 15, 10, 10));
    		   panelCenter.setBounds(31, 75, 1193, 279);
            add(panelCenter);
            panelCenter.setLayout(null);
            panelCenter.add(scrollPane_TK);
-   
+           
            
 
       JPanel pNorth = new JPanel();
+      pNorth.setBackground(new Color(255, 255, 255));
       pNorth.setBounds(31, 10, 1198, 55);
       add(pNorth);
       pNorth.setLayout(null);
@@ -257,7 +232,7 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
       	public void actionPerformed(ActionEvent e) {
       	}
       });
-      btnThongKe.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ThongKeLuongCongNhan_Form.class.getResource("/icon/thongKe.png")).getScaledInstance(30, 25,Image.SCALE_SMOOTH)));
+      btnThongKe.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ThongKeNhanVienCongTrinh_Form.class.getResource("/icon/thongKe.png")).getScaledInstance(30, 25,Image.SCALE_SMOOTH)));
       
       
       btnThongKe.setBounds(484, 10, 154, 38);
@@ -265,7 +240,7 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
       
       JButton btnXuatExcel = new JButton("Xuất ra excel");
       btnXuatExcel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-      btnXuatExcel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ThongKeLuongCongNhan_Form.class.getResource("/icon/excel.png")).getScaledInstance(30, 25,Image.SCALE_SMOOTH)));
+      btnXuatExcel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(ThongKeNhanVienCongTrinh_Form.class.getResource("/icon/excel.png")).getScaledInstance(30, 25,Image.SCALE_SMOOTH)));
 
       btnXuatExcel.setBounds(663, 10, 160, 38);
       pNorth.add(btnXuatExcel);
@@ -281,10 +256,7 @@ public class ThongKeLuongCongNhan_Form extends JPanel{
       lbNam.setFont(new Font("Tahoma", Font.PLAIN, 15));
       lbNam.setBounds(215, 19, 58, 20);
       pNorth.add(lbNam);
-      
-      
-      
-      
+
     }
 }
 

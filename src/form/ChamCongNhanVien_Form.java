@@ -26,8 +26,8 @@ import java.awt.Font;
 public class ChamCongNhanVien_Form extends JPanel {
 	private RoundPanel panelCenterLeft;
 	private RoundPanel panelSouth;
-	private int width = 1259;
-	private int height = 813;
+	private int width = 1250;
+	private int height = 725;
 	private Table tableCongNhan;
 	private Table tableNhanVien;
 	private Table tableChamCong;
@@ -51,15 +51,17 @@ public class ChamCongNhanVien_Form extends JPanel {
 	}
 	
 	private void initPanel() {
-		setPreferredSize(new Dimension(1259, 813));
+		setPreferredSize(new Dimension(1250, 777));
 //		setRound(20);
 
 		panelCenterLeft = new RoundPanel();
+		panelCenterLeft.setBounds(23, 10, 589, 369);
 		panelCenterLeft.setRound(20);
 		panelCenterLeft.setBackground(new Color(255, 255, 255));
 		panelCenterLeft.setBorder(new EmptyBorder(5, 15, 10, 10));
 		
 		panelSouth = new RoundPanel();
+		panelSouth.setBounds(23, 385, 1217, 378);
 		panelSouth.setLayout(new BorderLayout());
 		panelSouth.setBackground(new Color(255, 255, 255));
 		panelSouth.setBorder(new EmptyBorder(5, 15, 10, 10));
@@ -67,39 +69,16 @@ public class ChamCongNhanVien_Form extends JPanel {
 		panelSouth.setRound(20);
 		
 		RoundPanel panelCenterRight = new RoundPanel();
+		panelCenterRight.setBounds(630, 10, 610, 369);
 		panelCenterRight.setRound(20);
 		panelCenterRight.setPreferredSize(new Dimension(1259, 325));
 		panelCenterRight.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelCenterRight.setBackground(new Color(255, 255, 255));
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(23)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panelSouth, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(panelCenterLeft, GroupLayout.PREFERRED_SIZE, 589, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(panelCenterRight, GroupLayout.PREFERRED_SIZE, 597, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(32, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelCenterLeft, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelCenterRight, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(panelSouth, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE)
-					.addGap(24))
-		);
 		
 		RoundPanel panelThongTin = new RoundPanel();
 		panelThongTin.setRound(10);
 		panelThongTin.setOpaque(false);
-		panelThongTin.setBackground(new Color(153, 204, 255));
+		panelThongTin.setBackground(Color.decode("#1c92d2"));
 		
 		JLabel lblThngTinChamCong = new JLabel("Thông tin chấm công");
 		lblThngTinChamCong.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -123,7 +102,6 @@ public class ChamCongNhanVien_Form extends JPanel {
 		panelCenterRight.setLayout(gl_panelCenterRight);
 		panelCenterLeft.setLayout(new BorderLayout(0, 0));
 		panelSouth.setLayout(new BorderLayout(0, 0));
-		setLayout(groupLayout);	
 		JLabel lbIDNhanVien = new JLabel("ID Nhân Viên:");
 		lbIDNhanVien.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		lbIDNhanVien.setBounds(29, 24, 108, 24);
@@ -245,7 +223,7 @@ public class ChamCongNhanVien_Form extends JPanel {
 		
 		// Khởi tạo panel chứa tiêu đề của bảng
 		panelNV = new RoundPanel();
-		panelNV.setBackground(new Color(155, 204, 255));
+		panelNV.setBackground(Color.decode("#1c92d2"));
 		panelCenterLeft.add(panelNV, BorderLayout.NORTH);
 		panelNV.setRound(10);
 		panelNV.setOpaque(false);
@@ -283,13 +261,17 @@ public class ChamCongNhanVien_Form extends JPanel {
         panelListCC = new RoundPanel();
         panelListCC.setRound(10);
         panelListCC.setOpaque(false);
-        panelListCC.setBackground(new Color(153, 204, 255));
+        panelListCC.setBackground(Color.decode("#1c92d2"));
 //        scrollPane.setColumnHeaderView(panel_1);
         panelSouth.add(panelListCC, BorderLayout.NORTH);
         
         lbChamCong = new JLabel("Danh sách chấm công");
         lbChamCong.setFont(new Font("SansSerif", Font.PLAIN, 15));
         panelListCC.add(lbChamCong);
+        setLayout(null);
+        add(panelCenterLeft);
+        add(panelCenterRight);
+        add(panelSouth);
 	}
 
 }
